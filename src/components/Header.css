@@ -1,0 +1,36 @@
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: #4040bf;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	border: 2px solid #8d8ddd;
+	box-shadow: 2px -1px 2px 0px rgb(108, 184, 108);
+}
+.header-logo {
+	color: rgb(224, 222, 222);
+	padding: 5px;
+	margin: 5px;
+}
+.header-search {
+	display: flex;
+	flex: 1;
+}
+.serach-bar {
+	width: 800px;
+	height: 30px;
+	display: flex;
+	flex: 1;
+}
+
+.header-nav {
+	display: flex;
+	justify-content: space-evenly;
+}
+.header-nav-color {
+	color: white;
+	padding: 5px;
+	margin: 5px;
+}
