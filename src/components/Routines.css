@@ -22,7 +22,7 @@
 
 .routine-activities {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -32,6 +32,17 @@
 
     margin: -5px;
     padding: 5px;
+}
+
+.routine-activity {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+
+    width: 45vw;
+
+    margin-top: 15px;
 }
 
 button {
