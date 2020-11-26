@@ -22,6 +22,10 @@ function Header(props) {
         />
       </div>
       <div className="header-nav">
+        <Link style={{ textDecoration: 'none' }} to="/">
+          <span className="header-nav-color">Home</span>
+        </Link>
+
         <Link style={{ textDecoration: 'none' }} to="/routines">
           <span className="header-nav-color">Routines</span>
         </Link>
