@@ -11,6 +11,7 @@ import MyRoutines from './MyRoutines'
 import RoutineForm from './RoutineForm'
 import Home from './Home'
 import NewActivity from './NewActivity'
+import Routines from './Routines'
 
 
 function App() {
@@ -107,6 +108,7 @@ function App() {
               addActivity={addActivity}
               updateActivity={updateActivity}
             />
+
             <NewActivity activitiesList={activitiesList} />
             </Route>
             <Route path='/myroutines'>
