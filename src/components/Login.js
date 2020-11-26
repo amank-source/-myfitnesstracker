@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Link, useHistory } from 'react-router-dom'
 
-import { auth, register } from '../api/index'
+import { auth } from '../api/index'
 
 import './Login.css'
 
@@ -17,7 +17,11 @@ function Login(props) {
     <div className="login">
       <div className="logo-login">
         <Link to="/">
-          <h1>My FitnessPal </h1>
+          <img
+            className="header-logo"
+            src="https://i.imgur.com/yLWR1v4.jpg"
+            alt="logo"
+          />
         </Link>
       </div>
 
@@ -50,9 +54,9 @@ function Login(props) {
               console.log('hello')
               try {
                 const data = await auth(username, password)
-                console.log(data)
+                console.log(setIsLoggedIn)
                 setIsLoggedIn(true)
-                history.push('/activities')
+                history.push('/')
               } catch (error) {
                 setErrorMessage(error.message)
               }
@@ -68,9 +72,9 @@ function Login(props) {
           onClick={async () => {
             try {
               const data = await auth(username, password, true)
-              console.log(data)
+              console.log(setIsLoggedIn)
               setIsLoggedIn(true)
-              history.push('/activities')
+              history.push('/')
             } catch (error) {
               setErrorMessage(error.message)
             }

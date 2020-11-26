@@ -40,14 +40,14 @@ export const auth = async (username, password, isNew = false) => {
     }),
   })
 
-  const { error, data } = await response.json()
+  const { error, data, token } = await response.json()
 
   if (error) {
     throw Error(error.message)
   }
 
-  if (data && data.token) {
-    setToken(data.token)
+  if (token) {
+    setToken(token)
   }
 
   return data
@@ -65,15 +65,7 @@ export const hitAPI = async (method, endpoint, bodyObj) => {
 
   const response = await fetch(`${BASE_URL}${endpoint}`, payload)
 
-  const { error, data } = await response.json()
-
-  if (error) {
-    throw Error(error.message)
-  }
-
-  if (data && data.token) {
-    setToken(data.token)
-  }
+  const data = await response.json()
 
   return data
 }
