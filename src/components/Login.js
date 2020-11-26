@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Link, useHistory } from 'react-router-dom'
 
-import { auth, register } from '../api/index'
+import { auth } from '../api/index'
 
 import './Login.css'
 
