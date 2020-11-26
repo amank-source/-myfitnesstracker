@@ -8,6 +8,7 @@ import { hitAPI } from '../api/index'
 import Activities from './Activities'
 import Home from './Home'
 import NewActivity from './NewActivity'
+import Routines from './Routines'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
@@ -59,10 +60,17 @@ function App() {
               addActivity={addActivity}
               updateActivity={updateActivity}
             />
-
-            <NewActivity activitiesList={activitiesList} />
           </Route>
-          <Route path="/">
+
+          <Route path="/routines">
+            <Header
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              clearToken={clearToken}
+            />
+          </Route>
+
+          <Route exact path="/">
             <Header
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}

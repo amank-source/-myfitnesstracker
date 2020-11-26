@@ -13,7 +13,7 @@ function Activities(props) {
     addActivity,
     updateActivity,
   } = props
-  const [newActivity, setNewActivity] = useState(null)
+  const [newActivity, setNewActivity] = useState(false)
   const [editActvity, setEditActivity] = useState(null)
 
   const styles = {
@@ -48,7 +48,13 @@ function Activities(props) {
 
       {activitiesList.map((activity, idx) => {
         return (
-          <div className="activity-card" key={idx}>
+          <div
+            className="activity-card"
+            key={idx}
+            onClick={() => {
+              console.log(activity)
+            }}
+          >
             <h3>Name: {activity.name}</h3>
             <p>description: {activity.description}</p>
 
@@ -58,35 +64,26 @@ function Activities(props) {
                 updateActivity={updateActivity}
                 name={activity.name}
                 description={activity.description}
-                onCloseEdit={() => setEditActivity(false)}
+                onclose={() => setEditActivity(false)}
               />
             ) : null}
             {isLoggedIn ? (
-              <Fragment>
-                <Button
-                  style={{
-                    backgroundColor: '#666699',
-                    color: 'white',
-                    margin: '10px',
-                    alignItems: 'center',
-                    width: '40%',
-                  }}
-                >
-                  Delete
-                </Button>
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(119, 119, 197)',
-                    color: 'white',
-                    margin: '10px',
-                    alignItems: 'center',
-                    width: '40%',
-                  }}
-                  onClick={() => setEditActivity(activity.id)}
-                >
-                  Edit
-                </Button>
-              </Fragment>
+              <button
+                style={{
+                  backgroundColor: 'rgb(119, 119, 197)',
+                  color: 'white',
+                  marginTop: '10px',
+                  alignItems: 'center',
+                  width: '100%',
+
+                  height: '40px',
+                  fontSize: '20px',
+                  zIndex: '-1',
+                }}
+                onClick={() => setEditActivity(activity.id)}
+              >
+                Edit
+              </button>
             ) : null}
           </div>
         )
