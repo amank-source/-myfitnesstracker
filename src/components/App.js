@@ -8,75 +8,125 @@ import { hitAPI } from '../api/index'
 import Activities from './Activities'
 import Routines from './Routines'
 import MyRoutines from './MyRoutines'
+import RoutineForm from './RoutineForm'
+import Home from './Home'
+import NewActivity from './NewActivity'
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
+  const [activitiesList, setActivitiesList] = useState([])
   const [routineList, setRoutineList] = useState([]);
   const [user, setUser] = useState({});
+  const [editRoutine, setEditRoutine] = useState({});
 
-  function filterMyRoutines() {
-    return routineList.filter((routine) => {
-      return routine.creatorName === user;
+
+  function updateActivity(updatedAct) {
+    let index = activitiesList.findIndex((activity) => {
+      return activity.id === updatedAct.id
     })
+    if (index > -1) {
+      let activityList = [...activitiesList]
+      activityList[index] = updatedAct
+      setActivitiesList(activityList)
+    }
   }
+
+  function updateRoutine(updatedRoutine) {
+    let index = routineList.findIndex((routine) => {
+      return routine.id === updatedRoutine.id
+    })
+    if (index > -1) {
+      let newList = [...routineList]
+      newList[index] = updatedRoutine
+      setRoutineList(newList)
+    }
+  }
+
+  const addActivity = (newActivity) => {
+    return setActivitiesList([newActivity, ...activitiesList])
+  }
+
+  const addNewRoutine = (newRoutine) => {
+    return setRoutineList([newRoutine, ...routineList])
+}
+
+
+  useEffect(() => {
+    hitAPI('GET', '/activities')
+      .then((data) => {
+        console.log(data)
+        setActivitiesList(data)
+      })
+      .catch(console.error)
+  }, [isLoggedIn])
+
+  useEffect(() => {
+    hitAPI('GET', '/routines')
+      .then((data) => {
+        console.log(data)
+        setRoutineList(data)
+      })
+      .catch(console.error)
+  }, [isLoggedIn])
 
   useEffect(() => {
     async function fetchData() {
-        const resp = await hitAPI('GET', '/routines')
-        setRoutineList(resp)
+        const resp = await hitAPI('GET', '/users/me')
+        const user = resp.id
+        setUser(user);
     }
         fetchData();
         }, [isLoggedIn])
 
-
+  function userRoutines() {
+    return routineList.filter((routine) => {
+      return routine.creatorId === user;
+    });
+  }
   return (
     <Router>
       <div className="app">
+      <Header
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              clearToken={clearToken}
+            />
         <Switch>
             <Route path="/login">
               <Login setIsLoggedIn={setIsLoggedIn}
-                     setUser={ setUser } />
+                     setUser={setUser} />
             </Route>
 
-            <Route path="/activities">
-                <Header
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  clearToken={clearToken}
-                />
+          <Route path="/activities">
 
-                <Activities />
+            <Activities
+              isLoggedIn={isLoggedIn}
+              activitiesList={activitiesList}
+              setActivitiesList={setActivitiesList}
+              addActivity={addActivity}
+              updateActivity={updateActivity}
+            />
+            <NewActivity activitiesList={activitiesList} />
             </Route>
-            <Route path="/routines">
-              <Header
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-                clearToken={clearToken}
-              />
+            <Route path='/myroutines'>
+                <RoutineForm addNewRoutine={addNewRoutine}
+                             {...editRoutine}
+                             updateRoutine={updateRoutine}
+                             setEditRoutine={setEditRoutine}/>
 
-              <Routines routineList={ routineList } />
-            </Route>
-            <Route>
-              <Header
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  clearToken={clearToken}
-                />
-
-                <MyRoutines routineList={ filterMyRoutines() }
+                <MyRoutines routineList={ userRoutines() }
                             setRoutineList={ setRoutineList }
                             isLoggedIn={isLoggedIn}
-                            user={ user }
-                            setUser={ setUser }/>
+                            setEditRoutine={setEditRoutine}
+                            user={user}/>
             </Route>
-            <Route path="/">
-              <Header
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-                clearToken={clearToken}
-              />
-              <Activities />
+            <Route path="/routines">
+              <Routines routineList={ routineList } />
             </Route>
+          <Route path="/">
+            <Home />
+          </Route>
         </Switch>
       </div>
     </Router>

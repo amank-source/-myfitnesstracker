@@ -1,0 +1,19 @@
+.home {
+	display: grid;
+	width: 100%;
+
+	height: 800px;
+	position: relative;
+}
+.home-pic {
+	margin-top: 0px;
+	max-height: 500px;
+}
+.home--pic {
+	width: 100%;
+	margin-top: -1000px;
+	opacity: 0.2;
+}
+.home-description {
+	position: absolute;
+}

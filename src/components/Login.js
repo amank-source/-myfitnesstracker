@@ -17,7 +17,11 @@ function Login(props) {
     <div className="login">
       <div className="logo-login">
         <Link to="/">
-          <h1>My FitnessPal </h1>
+          <img
+            className="header-logo"
+            src="https://i.imgur.com/yLWR1v4.jpg"
+            alt="logo"
+          />
         </Link>
       </div>
 
@@ -53,7 +57,7 @@ function Login(props) {
                 console.log(user)
                 setIsLoggedIn(true)
                 setUser(user.username)
-                history.push('/activities')
+                history.push('/')
               } catch (error) {
                 setErrorMessage(error.message)
               }
@@ -71,7 +75,7 @@ function Login(props) {
               const user = await auth(username, password, true)
               setIsLoggedIn(true)
               setUser(user.username)
-              history.push('/activities')
+              history.push('/')
             } catch (error) {
               setErrorMessage(error.message)
             }

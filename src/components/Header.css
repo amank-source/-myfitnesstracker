@@ -2,12 +2,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	background: #4040bf;
+	background: #ededee;
 	position: sticky;
 	top: 0;
 	z-index: 100;
-	border: 2px solid #8d8ddd;
-	box-shadow: 2px -1px 2px 0px rgb(108, 184, 108);
+	border: 2px solid #dedee2;
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 .header-logo {
 	color: rgb(224, 222, 222);
@@ -18,8 +18,12 @@
 	display: flex;
 	flex: 1;
 }
+
+.header-logo {
+	width: 200px;
+	height: 140px;
+}
 .serach-bar {
-	width: 800px;
 	height: 30px;
 	display: flex;
 	flex: 1;
@@ -30,7 +34,7 @@
 	justify-content: space-evenly;
 }
 .header-nav-color {
-	color: white;
+	color: rgb(10, 10, 160);
 	padding: 5px;
 	margin: 5px;
 }
