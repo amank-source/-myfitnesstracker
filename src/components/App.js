@@ -7,10 +7,18 @@ import { getToken, clearToken } from '../api/index'
 import { hitAPI } from '../api/index'
 import Activities from './Activities'
 import Routines from './Routines'
+import MyRoutines from './MyRoutines'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [routineList, setRoutineList] = useState([]);
+  const [user, setUser] = useState({});
+
+  function filterMyRoutines() {
+    return routineList.filter((routine) => {
+      return routine.creatorName === user;
+    })
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -26,7 +34,8 @@ function App() {
       <div className="app">
         <Switch>
             <Route path="/login">
-              <Login setIsLoggedIn={setIsLoggedIn} />
+              <Login setIsLoggedIn={setIsLoggedIn}
+                     setUser={ setUser } />
             </Route>
 
             <Route path="/activities">
@@ -46,6 +55,19 @@ function App() {
               />
 
               <Routines routineList={ routineList } />
+            </Route>
+            <Route>
+              <Header
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                  clearToken={clearToken}
+                />
+
+                <MyRoutines routineList={ filterMyRoutines() }
+                            setRoutineList={ setRoutineList }
+                            isLoggedIn={isLoggedIn}
+                            user={ user }
+                            setUser={ setUser }/>
             </Route>
             <Route path="/">
               <Header

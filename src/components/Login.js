@@ -7,7 +7,7 @@ import { auth } from '../api/index'
 import './Login.css'
 
 function Login(props) {
-  const { setIsLoggedIn } = props
+  const { setIsLoggedIn, setUser } = props
   const history = useHistory()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -49,9 +49,10 @@ function Login(props) {
             onClick={async () => {
               console.log('hello')
               try {
-                const data = await auth(username, password)
-                console.log(data)
+                const user = await auth(username, password)
+                console.log(user)
                 setIsLoggedIn(true)
+                setUser(user.username)
                 history.push('/activities')
               } catch (error) {
                 setErrorMessage(error.message)
@@ -67,9 +68,9 @@ function Login(props) {
           className="login-createbutton"
           onClick={async () => {
             try {
-              const data = await auth(username, password, true)
-              console.log(data)
+              const user = await auth(username, password, true)
               setIsLoggedIn(true)
+              setUser(user.username)
               history.push('/activities')
             } catch (error) {
               setErrorMessage(error.message)
