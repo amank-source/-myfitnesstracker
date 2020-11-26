@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from 'react'
-import { hitAPI } from '../api'
 import './Activity.css'
 import CreateIcon from '@material-ui/icons/Create'
 import Button from '@material-ui/core/Button'

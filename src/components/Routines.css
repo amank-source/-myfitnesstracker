@@ -10,6 +10,7 @@
     grid-template-rows: 1fr 2fr;
 
     border: 2px solid rgb(41, 0, 226);
+    border-radius: 5px;
     color: #4040bf;
     background-color: rgb(204, 239, 250);
     box-shadow: 2px 5px 16px 0px rgba(0, 0, 0, 0.91);
