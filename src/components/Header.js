@@ -9,12 +9,16 @@ function Header(props) {
   return (
     <div className="header">
       <Link style={{ textDecoration: 'none' }} to="/">
-        <h1 className="header-logo">My FitnessPal</h1>
+        <img
+          className="header-logo"
+          src="https://i.imgur.com/yLWR1v4.jpg"
+          alt="logo"
+        />
       </Link>
       <div className="header-search">
         <SearchBar
           className="serach-bar"
-          style={{ backgroundColor: '#8d8ddd' }}
+          style={{ backgroundColor: 'white' }}
         />
       </div>
       <div className="header-nav">
