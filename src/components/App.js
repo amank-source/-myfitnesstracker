@@ -106,7 +106,6 @@ function App() {
               addActivity={addActivity}
               updateActivity={updateActivity}
             />
-
              <NewActivity activitiesList={activitiesList} />     
             </Route>
             <Route path='/myroutines'>
@@ -116,7 +115,7 @@ function App() {
                              updateRoutine={updateRoutine}
                              setEditRoutine={setEditRoutine}
                              /> : <button onClick={() => {
-                               
+
                              }}>Create Routine</button>
                              }
 
