@@ -12,8 +12,8 @@ function Activities(props) {
     addActivity,
     updateActivity,
   } = props
-  const [newActivity, setNewActivity] = useState(null)
-  const [editActvity, setEditActivity] = useState(null)
+  const [newActivity, setNewActivity] = useState(false)
+  const [editActvity, setEditActivity] = useState(false)
 
   const styles = {
     largeIcon: {
@@ -47,7 +47,13 @@ function Activities(props) {
 
       {activitiesList.map((activity, idx) => {
         return (
-          <div className="activity-card" key={idx}>
+          <div
+            className="activity-card"
+            key={idx}
+            onClick={() => {
+              console.log(activity)
+            }}
+          >
             <h3>Name: {activity.name}</h3>
             <p>description: {activity.description}</p>
 
@@ -57,11 +63,11 @@ function Activities(props) {
                 updateActivity={updateActivity}
                 name={activity.name}
                 description={activity.description}
-                onCloseEdit={() => setEditActivity(false)}
+                onclose={() => setEditActivity(false)}
               />
             ) : null}
             {isLoggedIn ? (
-              <Fragment>
+                <Fragment>
                 <Button
                   style={{
                     backgroundColor: '#666699',

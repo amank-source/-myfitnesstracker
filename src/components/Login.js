@@ -56,7 +56,7 @@ function Login(props) {
                 const user = await auth(username, password)
                 console.log(user)
                 setIsLoggedIn(true)
-                setUser(user.username)
+                setUser(user.id)
                 history.push('/')
               } catch (error) {
                 setErrorMessage(error.message)
@@ -74,7 +74,7 @@ function Login(props) {
             try {
               const user = await auth(username, password, true)
               setIsLoggedIn(true)
-              setUser(user.username)
+              setUser(user.id)
               history.push('/')
             } catch (error) {
               setErrorMessage(error.message)

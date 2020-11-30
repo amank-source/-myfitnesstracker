@@ -21,6 +21,14 @@
     width: 55vw;
 }
 
+.routine h1 {
+    color: rgb(204, 239, 250);
+    background-color: #4040bf;
+
+    margin: -5px;
+    margin-bottom: 3px;
+}
+
 .routine-activities {
     display: flex;
     flex-direction: column;
@@ -33,17 +41,6 @@
 
     margin: -5px;
     padding: 5px;
-}
-
-.routine-activity {
-    display: flex;
-    flex-direction: row;
-
-    justify-content: space-between;
-
-    width: 45vw;
-
-    margin-top: 15px;
 }
 
 button {
