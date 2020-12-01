@@ -25,3 +25,9 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+.myroutine-list {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}

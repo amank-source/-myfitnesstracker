@@ -75,22 +75,18 @@ function Activities(props) {
               />
             ) : null}
             {isLoggedIn ? (
-              <button
+              <Button
                 style={{
                   backgroundColor: 'rgb(119, 119, 197)',
                   color: 'white',
-                  marginTop: '10px',
+                  margin: '10px',
                   alignItems: 'center',
-                  width: '100%',
-
-                  height: '40px',
-                  fontSize: '20px',
-                  zIndex: '-1',
+                  width: '90%',
                 }}
                 onClick={() => setEditActivity(activity.id)}
               >
                 Edit
-              </button>
+              </Button>
             ) : null}
           </div>
         )

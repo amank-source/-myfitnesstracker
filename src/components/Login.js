@@ -59,7 +59,7 @@ function Login(props) {
                 console.log(user)
 
                 setIsLoggedIn(true)
-                setUser(user.username)
+                setUser(user.id)
                 history.push('/')
               } catch (error) {
                 setErrorMessage(
@@ -83,7 +83,7 @@ function Login(props) {
 
               console.log(user)
               setIsLoggedIn(true)
-              setUser(user.username)
+              setUser(user.id)
               history.push('/')
             } catch (error) {
               setErrorMessage(

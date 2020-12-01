@@ -21,6 +21,9 @@ function App() {
   const [editRoutine, setEditRoutine] = useState({})
   console.log('routine s', routineList)
 
+  const [editRoutineAct, setEditRoutineAct] = useState({})
+  const [showRoutForm, setShowRoutForm] = useState(false)
+
   function updateActivity(updatedAct) {
     let index = activitiesList.findIndex((activity) => {
       return activity.id === updatedAct.id
@@ -99,7 +102,6 @@ function App() {
           <Route path="/login">
             <Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
           </Route>
-
           <Route path="/activities">
             <Activities
               isLoggedIn={isLoggedIn}
@@ -111,24 +113,34 @@ function App() {
             />
           </Route>
           <Route path="/myroutines">
-            <RoutineForm
-              addNewRoutine={addNewRoutine}
-              {...editRoutine}
-              updateRoutine={updateRoutine}
-              setEditRoutine={setEditRoutine}
-            />
+            {showRoutForm ? (
+              <RoutineForm
+                addNewRoutine={addNewRoutine}
+                {...editRoutine}
+                updateRoutine={updateRoutine}
+                setEditRoutine={setEditRoutine}
+              />
+            ) : (
+              <button onClick={() => {}}>Create Routine</button>
+            )}
 
             <MyRoutines
-              routineList={userRoutines()}
+              routineList={routineList}
               setRoutineList={setRoutineList}
               isLoggedIn={isLoggedIn}
               setEditRoutine={setEditRoutine}
               user={user}
-              activitiesList={activitiesList}
+              setEditRoutineAct={setEditRoutineAct}
+              editRoutineAct={editRoutineAct}
             />
-          </Route>
+          </Route>{' '}
+          :
           <Route path="/routines">
-            <Routines routineList={routineList} />
+            <Routines
+              routineList={routineList}
+              setEditRoutineAct={setEditRoutineAct}
+              editRoutineAct={editRoutineAct}
+            />
           </Route>
           <Route path="/">
             <Home />

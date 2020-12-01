@@ -1,10 +1,69 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { hitAPI } from '../api'
-import { RoutineActivities } from './Routines'
+import RoutineActivities from './RoutineActvities'
 import './MyRoutines.css'
 
+const ActivityForm = (props) => {
+  const { handleClick, id } = props
+  const [activityId, setActivityId] = useState('')
+  const [count, setCount] = useState('')
+  const [duration, setDuration] = useState('')
+
+  useEffect(() => {
+    setActivityId(props.routineActivityId || '')
+    setCount(props.count || '')
+    setDuration(props.duration || '')
+  }, [id])
+
+  function clearForm() {
+    setActivityId('')
+    setCount('')
+    setDuration('')
+  }
+
+  return (
+    <form onSubmit={(event) => event.preventDefault()}>
+      <input
+        type="number"
+        value={activityId}
+        onChange={(event) => setActivityId(event.target.value)}
+        placeholder="Id"
+      />
+      <input
+        type="number"
+        value={count}
+        onChange={(event) => setCount(event.target.value)}
+        placeholder="Count"
+      />
+      <input
+        type="number"
+        value={duration}
+        onChange={(event) => setDuration(event.target.value)}
+        placeholder="Duration"
+      />
+      <button
+        onClick={async () => {
+          handleClick(activityId, count, duration)
+          clearForm()
+        }}
+      >
+        {id ? 'Edit Activity' : 'Add Activity'}
+      </button>
+    </form>
+  )
+}
+
 const MyRoutines = (props) => {
-  const { routineList, setRoutineList, setEditRoutine, activitiesList } = props
+  const {
+    routineList,
+    setRoutineList,
+    setEditRoutine,
+    showActivities,
+    setShowActivities,
+    setEditRoutineAct,
+    editRoutineAct,
+    user,
+  } = props
 
   const newarrayActivities = () => {
     let newarr = []
@@ -23,8 +82,7 @@ const MyRoutines = (props) => {
       <div className="myroutine-list">
         <h1>My Routines</h1>
         {routineList.map((routine) => {
-          console.log(routine.activities)
-          return (
+          return user === routine.creatorId ? (
             <div className="routine" key={routine.id}>
               <h1>
                 {routine.name} by {routine.creatorName}
@@ -54,50 +112,100 @@ const MyRoutines = (props) => {
                 >
                   EDIT
                 </button>
-
-                <div className="dropdown">
-                  <button className="dropbtn">Add Activity</button>
-                  <div className="dropdown-content">
-                    {newarrayActivities().map((activity, idx) => {
-                      return (
-                        <div key={idx}>
-                          <h3>{activity.name}</h3>
-                          <h4>{activity.description}</h4>
-                          <p>
-                            Rep Count: {activity.count}, Duration:{' '}
-                            {activity.duration}
-                          </p>
-
-                          <button
-                            onClick={async () => {
-                              const result = await hitAPI(
-                                'POST',
-                                `/routines/${routine.id}/activities`,
-                                {
-                                  activityId: activity.id,
-                                  count: activity.count,
-                                  duration: activity.duration,
-                                },
-                              )
-                              console.log(activity.id)
-                              console.log(activity.count)
-                              console.log(activity.duration)
-
-                              console.log(result)
-                            }}
-                          >
-                            add to activities
-                          </button>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
               </div>
+              <ActivityForm
+                routine={routine}
+                {...editRoutineAct}
+                handleClick={async (activityId, count, duration) => {
+                  const payload = {
+                    activityId,
+                    count,
+                    duration,
+                  }
 
-              <RoutineActivities activityList={routine.activities} />
+                  const editpayload = {
+                    count,
+                    duration,
+                  }
+                  if (editRoutineAct) {
+                    try {
+                      const editedAct = await hitAPI(
+                        'PATCH',
+                        `/routine_activities/${activityId}`,
+                        editpayload,
+                      )
+                      let index = routineList.findIndex((rout) => {
+                        return rout.id === routine.id
+                      })
+                      if (index > -1) {
+                        const newList = [...routineList]
+                        newList[index] = routine
+                        let actIndex = routine.activities.findIndex(
+                          (activity) => {
+                            return activity.routineActivityId === editedAct.id
+                          },
+                        )
+                        if (actIndex > -1) {
+                          newList[index].activities[actIndex].count =
+                            editedAct.count
+                          newList[index].activities[actIndex].duration =
+                            editedAct.duration
+                          setRoutineList(newList)
+                        }
+                      }
+                      setEditRoutineAct({})
+                    } catch (error) {
+                      console.log(error)
+                    }
+                  } else {
+                    try {
+                      await hitAPI(
+                        'POST',
+                        `/routines/${routine.id}/activities`,
+                        payload,
+                      )
+                        .then((resp) => {
+                          const newList = [...routineList]
+                          let idx = newList.indexOf(routine)
+                          newList[idx].activities.push(resp)
+                          setRoutineList(newList)
+                        })
+                        .catch(console.error)
+                    } catch (error) {
+                      console.log(error)
+                    }
+                  }
+                }}
+              />
+              <RoutineActivities
+                activityList={routine.activities}
+                showActivities={showActivities}
+                setShowActivities={setShowActivities}
+                myRoutines={true}
+                setEditRoutineAct={setEditRoutineAct}
+                handleDelete={async (activity) => {
+                  try {
+                    await hitAPI(
+                      'DELETE',
+                      `/routine_activities/${activity.routineActivityId}`,
+                    )
+                      .then((resp) => {
+                        const newList = [...routineList]
+                        let idx = newList.indexOf(routine)
+                        let activityIdx = newList[idx].activities.indexOf(
+                          activity,
+                        )
+                        newList[idx].activities.splice(activityIdx, 1)
+                        setRoutineList(newList)
+                      })
+                      .catch(console.error)
+                  } catch (error) {
+                    console.log(error)
+                  }
+                }}
+              />
             </div>
-          )
+          ) : null
         })}
       </div>
     </>
