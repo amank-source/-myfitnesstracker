@@ -4,3 +4,10 @@
 
     align-items: center;
 }
+
+.activity-select {
+    width: 30vw;
+    margin: 2px;
+
+    padding: 2px;
+}
