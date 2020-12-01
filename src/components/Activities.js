@@ -74,20 +74,22 @@ function Activities(props) {
                 onclose={() => setEditActivity(false)}
               />
             ) : null}
-            {isLoggedIn ? (
-              <Button
-                style={{
-                  backgroundColor: 'rgb(119, 119, 197)',
-                  color: 'white',
-                  margin: '10px',
-                  alignItems: 'center',
-                  width: '90%',
-                }}
-                onClick={() => setEditActivity(activity.id)}
-              >
-                Edit
-              </Button>
-            ) : null}
+
+            <Button
+              style={{
+                backgroundColor: 'rgb(54, 54, 187)',
+                color: 'white',
+                margin: '10px',
+                alignItems: 'center',
+                width: '90%',
+                fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+                fontWeight: '800',
+                zIndex: '-1',
+              }}
+              onClick={() => setEditActivity(activity.id)}
+            >
+              Edit
+            </Button>
           </div>
         )
       })}

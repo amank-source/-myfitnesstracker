@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { hitAPI } from '../api'
 import RoutineActivities from './RoutineActvities'
 import './MyRoutines.css'
+import RoutineForm from './RoutineForm'
 
 const ActivityForm = (props) => {
   const { handleClick, id } = props
@@ -22,7 +23,10 @@ const ActivityForm = (props) => {
   }
 
   return (
-    <form onSubmit={(event) => event.preventDefault()}>
+    <form
+      className="routine--form"
+      onSubmit={(event) => event.preventDefault()}
+    >
       <input
         type="number"
         value={activityId}
@@ -63,22 +67,27 @@ const MyRoutines = (props) => {
     setEditRoutineAct,
     editRoutineAct,
     user,
+    addNewRoutine,
+    editRoutine,
+    updateRoutine,
+    id,
   } = props
-
-  const newarrayActivities = () => {
-    let newarr = []
-    for (let i = 0; i < routineList.length; i++) {
-      for (let j = 0; j < routineList[i].activities.length; j++) {
-        newarr.push(routineList[i].activities[j])
-      }
-    }
-    console.log(newarr)
-    return newarr
-  }
-  newarrayActivities()
+  const [showForm, setShowForm] = useState(false)
+  const [edit1, setEdit1] = useState(null)
 
   return (
     <>
+      <div className="myRoutin-create">
+        <h2 onClick={() => setShowForm(true)}>Create Routine</h2>
+      </div>
+      {showForm ? (
+        <RoutineForm
+          addNewRoutine={addNewRoutine}
+          // {...editRoutine}
+          onclearClick={() => setShowForm(false)}
+        />
+      ) : null}
+
       <div className="myroutine-list">
         <h1>My Routines</h1>
         {routineList.map((routine) => {
@@ -88,6 +97,15 @@ const MyRoutines = (props) => {
                 {routine.name} by {routine.creatorName}
               </h1>
               <h2>{routine.goal}</h2>
+              {edit1 === routine.id ? (
+                <RoutineForm
+                  updateRoutine={updateRoutine}
+                  name={routine.name}
+                  goal={routine.goal}
+                  routineId={routine.id}
+                  onclearClick={() => setEdit1(null)}
+                />
+              ) : null}
               <div className="options">
                 <button
                   onClick={() => {
@@ -105,9 +123,11 @@ const MyRoutines = (props) => {
                 >
                   DELETE
                 </button>
+
                 <button
                   onClick={() => {
-                    setEditRoutine(routine)
+                    console.log(routine.id)
+                    setEdit1(routine.id)
                   }}
                 >
                   EDIT

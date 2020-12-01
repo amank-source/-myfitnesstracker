@@ -26,8 +26,61 @@
   background-color: #3e8e41;
 }
 .myroutine-list {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    align-items: center;
+  align-items: center;
+}
+.routine--form > input {
+  height: 25px;
+  margin: 8px;
+}
+.routine--form > button {
+  height: 25px;
+  padding: 2px 4px 5px 2px;
+  background-color: #4545b6;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+}
+
+.myRoutin-create {
+  width: 20%;
+  background: blue;
+  text-align: center;
+  color: white;
+  margin: 10px;
+  border-radius: 12px;
+  align-content: center;
+  align-items: center;
+  margin-left: 600px;
+}
+
+.myRoutin-create:hover {
+  cursor: pointer;
+}
+
+.routine--form > button:hover {
+  cursor: pointer;
+}
+
+.routine--form-buuton {
+  height: 40px;
+  background-color: #4545b6;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+}
+
+.options > button {
+  height: 40px;
+  width: 40%;
+  margin: 10px;
+  background-color: #4545b6;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+}
+.options > button:hover {
+  cursor: pointer;
 }

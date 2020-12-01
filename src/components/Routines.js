@@ -34,6 +34,7 @@ export const RoutineActivities = ({ activityList }) => {
           })
         ) : (
           <button
+            className="show-act"
             onClick={() => {
               setShowActivities(true)
             }}

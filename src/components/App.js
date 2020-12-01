@@ -22,7 +22,7 @@ function App() {
   console.log('routine s', routineList)
 
   const [editRoutineAct, setEditRoutineAct] = useState({})
-  const [showRoutForm, setShowRoutForm] = useState(false)
+  // const [showRoutForm, setShowRoutForm] = useState(false)
 
   function updateActivity(updatedAct) {
     let index = activitiesList.findIndex((activity) => {
@@ -113,17 +113,6 @@ function App() {
             />
           </Route>
           <Route path="/myroutines">
-            {showRoutForm ? (
-              <RoutineForm
-                addNewRoutine={addNewRoutine}
-                {...editRoutine}
-                updateRoutine={updateRoutine}
-                setEditRoutine={setEditRoutine}
-              />
-            ) : (
-              <button onClick={() => {}}>Create Routine</button>
-            )}
-
             <MyRoutines
               routineList={routineList}
               setRoutineList={setRoutineList}
@@ -132,6 +121,9 @@ function App() {
               user={user}
               setEditRoutineAct={setEditRoutineAct}
               editRoutineAct={editRoutineAct}
+              addNewRoutine={addNewRoutine}
+              {...editRoutine}
+              updateRoutine={updateRoutine}
             />
           </Route>{' '}
           :
