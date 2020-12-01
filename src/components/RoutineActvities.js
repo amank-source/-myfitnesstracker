@@ -43,6 +43,7 @@ const RoutineActivities = ({
                     {myRoutines ? (
                       <div>
                         <button
+                          style={{ zIndex: '-1' }}
                           onClick={() => {
                             handleDelete(activity)
                           }}
@@ -50,6 +51,7 @@ const RoutineActivities = ({
                           Delete
                         </button>
                         <button
+                          style={{ zIndex: '-1' }}
                           onClick={() => {
                             setEditRoutineAct(activity)
                           }}

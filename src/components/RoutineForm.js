@@ -12,7 +12,6 @@ const RoutineForm = (props) => {
     onclearClick,
     onclearedit,
     routineId,
-    oncloseEdit,
   } = props
   const [name, setName] = useState('')
   const [goal, setGoal] = useState('')
@@ -44,15 +43,15 @@ const RoutineForm = (props) => {
             placeholder="Goal of Routine"
           />
 
-          {routineId ? (
-            <button
-              onClick={async () => {
-                const payload = {
-                  name,
-                  goal,
-                  isPublic: true,
-                }
+          <button
+            onClick={async () => {
+              const payload = {
+                name,
+                goal,
+                isPublic: true,
+              }
 
+              if (routineId) {
                 try {
                   const editedRoutine = await hitAPI(
                     'PATCH',
@@ -64,19 +63,7 @@ const RoutineForm = (props) => {
                 } catch (error) {
                   console.log(error)
                 }
-              }}
-            >
-              Update
-            </button>
-          ) : (
-            <button
-              onClick={async () => {
-                const payload = {
-                  name,
-                  goal,
-                  isPublic: true,
-                }
-
+              } else {
                 try {
                   const newRoutine = await hitAPI('POST', '/routines', payload)
                   addNewRoutine(newRoutine)
@@ -87,11 +74,11 @@ const RoutineForm = (props) => {
                 onclearClick(false)
                 setName('')
                 setGoal('')
-              }}
-            >
-              Create Routine
-            </button>
-          )}
+              }
+            }}
+          >
+            {routineId ? 'Update Routine' : 'Create Routine'}
+          </button>
         </form>
       </div>
     </div>

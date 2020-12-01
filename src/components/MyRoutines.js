@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { hitAPI } from '../api'
 import RoutineActivities from './RoutineActvities'
 import './MyRoutines.css'
 import RoutineForm from './RoutineForm'
 
 const ActivityForm = (props) => {
-  const { handleClick, id } = props
+  const { handleClick, id, activitiesList } = props
   const [activityId, setActivityId] = useState('')
   const [count, setCount] = useState('')
   const [duration, setDuration] = useState('')
+  const [act, setAct] = useState('')
 
   useEffect(() => {
     setActivityId(props.routineActivityId || '')
@@ -24,7 +25,7 @@ const ActivityForm = (props) => {
 
   return (
     <form
-      className="routine--form"
+      className="activeCreating-form"
       onSubmit={(event) => event.preventDefault()}
     >
       <input
@@ -53,6 +54,32 @@ const ActivityForm = (props) => {
       >
         {id ? 'Edit Activity' : 'Add Activity'}
       </button>
+      <div className="select-div">
+        <select
+          className="activity-select"
+          value={act}
+          onChange={(event) => {
+            setAct(event.target.value)
+          }}
+        >
+          {activitiesList.map((activity) => {
+            return <option key={activity.id}>{activity.name}</option>
+          })}
+        </select>
+
+        <button
+          className="select-buuton"
+          onClick={() => {
+            console.log(act)
+            let newAct = activitiesList.find((activity) => {
+              return activity.name === act
+            })
+            setActivityId(newAct.id)
+          }}
+        >
+          Select Activity
+        </button>
+      </div>
     </form>
   )
 }
@@ -70,6 +97,8 @@ const MyRoutines = (props) => {
     addNewRoutine,
     editRoutine,
     updateRoutine,
+    activitiesList,
+
     id,
   } = props
   const [showForm, setShowForm] = useState(false)
@@ -108,6 +137,7 @@ const MyRoutines = (props) => {
               ) : null}
               <div className="options">
                 <button
+                  style={{ zIndex: '-1' }}
                   onClick={() => {
                     try {
                       hitAPI('DELETE', `/routines/${routine.id}`)
@@ -125,6 +155,7 @@ const MyRoutines = (props) => {
                 </button>
 
                 <button
+                  style={{ zIndex: '-1' }}
                   onClick={() => {
                     console.log(routine.id)
                     setEdit1(routine.id)
@@ -136,6 +167,7 @@ const MyRoutines = (props) => {
               <ActivityForm
                 routine={routine}
                 {...editRoutineAct}
+                activitiesList={activitiesList}
                 handleClick={async (activityId, count, duration) => {
                   const payload = {
                     activityId,

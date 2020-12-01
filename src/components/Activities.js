@@ -18,13 +18,6 @@ function Activities(props) {
   const [editActvity, setEditActivity] = useState(null)
   const [routineforActivity, setRoutineForActivity] = useState(null)
 
-  const styles = {
-    largeIcon: {
-      width: 60,
-      height: 60,
-    },
-  }
-
   return (
     <div className="activities">
       <CreateIcon
@@ -70,12 +63,11 @@ function Activities(props) {
                 updateActivity={updateActivity}
                 name={activity.name}
                 description={activity.description}
-                activitiesList={activitiesList}
                 onclose={() => setEditActivity(false)}
               />
             ) : null}
 
-            <Button
+            <button
               style={{
                 backgroundColor: 'rgb(54, 54, 187)',
                 color: 'white',
@@ -84,12 +76,16 @@ function Activities(props) {
                 width: '90%',
                 fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
                 fontWeight: '800',
-                zIndex: '-1',
+                height: '35px',
+                width: '97%',
+                // zIndex: '-1',
               }}
-              onClick={() => setEditActivity(activity.id)}
+              onClick={() => {
+                setEditActivity(activity.id)
+              }}
             >
               Edit
-            </Button>
+            </button>
           </div>
         )
       })}
