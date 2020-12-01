@@ -5,7 +5,7 @@ import SearchBar from 'material-ui-search-bar'
 import './Header.css'
 
 function Header(props) {
-  const { isLoggedIn, setIsLoggedIn, clearToken } = props
+  const { isLoggedIn, setIsLoggedIn, clearToken, username } = props
   return (
     <div className="header">
       <Link style={{ textDecoration: 'none' }} to="/">
@@ -45,7 +45,7 @@ function Header(props) {
                 setIsLoggedIn(false)
               }}
             >
-              Logout
+              {`Hello ${username}, Logout!`}
             </span>
           </Link>
         ) : (

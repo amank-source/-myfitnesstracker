@@ -40,7 +40,7 @@ export const auth = async (username, password, isNew = false) => {
     }),
   })
 
-  const { error, data, token } = await response.json()
+  const { error, user, token } = await response.json()
 
   if (error) {
     throw Error(error.message)
@@ -50,7 +50,7 @@ export const auth = async (username, password, isNew = false) => {
     setToken(token)
   }
 
-  return data
+  return user
 }
 
 export const hitAPI = async (method, endpoint, bodyObj) => {

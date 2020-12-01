@@ -11,15 +11,28 @@ function NewActivity(props) {
     activityId,
     updateActivity,
     onCloseEdit,
+    activitiesList,
   } = props
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [active, setActive] = useState(false)
   useEffect(() => {
     setName(props.name || '')
     setDescription(props.description || '')
   }, [activityId])
 
   console.log(activityId)
+
+  function duplicateActivityCheck() {
+    for (let i = 0; i < activitiesList.length; i++) {
+      let nameCheck = activitiesList[i].name
+      if (name === nameCheck) {
+        return true
+      }
+    }
+    return false
+  }
 
   return (
     <div className="modal">
@@ -32,7 +45,10 @@ function NewActivity(props) {
           <h3>Activity Title </h3>
           <input
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setActive(false)
+              setName(e.target.value)
+            }}
             type="text"
             placeholder="Name goes here.."
           />
@@ -45,6 +61,12 @@ function NewActivity(props) {
           />
         </form>
 
+        {active ? (
+          <h5 className="duplicate">{name} already exists</h5>
+        ) : (
+          <h5>&nbsp;</h5>
+        )}
+
         {activityId ? (
           <Button
             style={{
@@ -53,22 +75,28 @@ function NewActivity(props) {
             }}
             className="activity-buttonnew"
             onClick={async () => {
-              try {
-                const objBody = {
-                  name,
-                  description,
+              const objBody = {
+                name,
+                description,
+              }
+
+              if (duplicateActivityCheck()) {
+                setDescription('')
+                setActive(true)
+              } else {
+                try {
+                  const result = await hitAPI(
+                    'PATCH',
+                    `/activities/${activityId}`,
+                    objBody,
+                  )
+
+                  updateActivity(result)
+                  onclose(false)
+                  setActive(false)
+                } catch (error) {
+                  console.error(error)
                 }
-                const result = await hitAPI(
-                  'PATCH',
-                  `/activities/${activityId}`,
-                  objBody,
-                )
-
-                updateActivity(result)
-
-                onclose(false)
-              } catch (error) {
-                console.log(error)
               }
             }}
           >
@@ -79,17 +107,24 @@ function NewActivity(props) {
             style={{ backgroundColor: 'blue', color: 'white' }}
             className="activity-buttonnew"
             onClick={async () => {
-              try {
-                const objBody = {
-                  name,
-                  description,
-                }
-                const result = await hitAPI('POST', '/activities', objBody)
+              const objBody = {
+                name,
+                description,
+              }
 
-                addActivity(result)
-                onclose(false)
-              } catch (error) {
-                console.error(error)
+              if (duplicateActivityCheck()) {
+                setDescription('')
+                setActive(true)
+              } else {
+                try {
+                  const result = await hitAPI('POST', '/activities', objBody)
+
+                  addActivity(result)
+                  onclose(false)
+                  setActive(false)
+                } catch (error) {
+                  console.error(error)
+                }
               }
             }}
           >

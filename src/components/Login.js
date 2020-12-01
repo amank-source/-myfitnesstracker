@@ -7,7 +7,7 @@ import { auth } from '../api/index'
 import './Login.css'
 
 function Login(props) {
-  const { setIsLoggedIn } = props
+  const { setIsLoggedIn, setUser } = props
   const history = useHistory()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -27,13 +27,16 @@ function Login(props) {
 
       <div className="login-container">
         <h1>Sign In</h1>
+
         <form
           onSubmit={(event) => {
             event.preventDefault()
           }}
         >
+          {errorMessage ? (
+            <h5 style={{ color: 'red' }}>{errorMessage}</h5>
+          ) : null}
           <h5>Email</h5>
-          {errorMessage ? <h5 className="error">{errorMessage}</h5> : null}
           <input
             type="text"
             value={username}
@@ -51,14 +54,19 @@ function Login(props) {
           <button
             className="login-siginbutton"
             onClick={async () => {
-              console.log('hello')
               try {
-                const data = await auth(username, password)
-                console.log(setIsLoggedIn)
+                const user = await auth(username, password)
+                console.log(user)
+
                 setIsLoggedIn(true)
+                setUser(user.username)
                 history.push('/')
               } catch (error) {
-                setErrorMessage(error.message)
+                setErrorMessage(
+                  'User name or password is incorrect/ user not registered',
+                )
+
+                console.log(error)
               }
             }}
           >
@@ -71,12 +79,18 @@ function Login(props) {
           className="login-createbutton"
           onClick={async () => {
             try {
-              const data = await auth(username, password, true)
-              console.log(setIsLoggedIn)
+              const user = await auth(username, password, true)
+
+              console.log(user)
               setIsLoggedIn(true)
+              setUser(user.username)
               history.push('/')
             } catch (error) {
-              setErrorMessage(error.message)
+              setErrorMessage(
+                'User name or password is incorrect/ user not registered',
+              )
+
+              console.log(error)
             }
           }}
         >
