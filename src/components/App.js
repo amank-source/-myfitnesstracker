@@ -126,6 +126,7 @@ function App() {
                             user={user}
                             setEditRoutineAct={setEditRoutineAct}
                             editRoutineAct={editRoutineAct}
+                            activitiesList={activitiesList}
                                 />
             </Route> : 
             <Route path="/routines">
