@@ -16,7 +16,8 @@ const RoutineForm = (props ) => {
         setName(props.name || '')
     }, [id])
     
-    return <form onSubmit={(event) => event.preventDefault()}>
+    return <div clasName='modal'>
+            <form onSubmit={(event) => event.preventDefault()}>
                          <input
                             type="text"
                             value={name}
@@ -61,6 +62,7 @@ const RoutineForm = (props ) => {
                             setGoal("")
                         }}>{id ? 'Edit Routine' : 'Create Routine'}</button>
                          </form>
+                     </div>
 }
 
 export default RoutineForm;

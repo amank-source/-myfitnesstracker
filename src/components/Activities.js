@@ -13,7 +13,7 @@ function Activities(props) {
     updateActivity,
   } = props
   const [newActivity, setNewActivity] = useState(false)
-  const [editActvity, setEditActivity] = useState(null)
+  const [editActvity, setEditActivity] = useState(false)
 
   const styles = {
     largeIcon: {
@@ -67,22 +67,31 @@ function Activities(props) {
               />
             ) : null}
             {isLoggedIn ? (
-              <button
-                style={{
-                  backgroundColor: 'rgb(119, 119, 197)',
-                  color: 'white',
-                  marginTop: '10px',
-                  alignItems: 'center',
-                  width: '100%',
-
-                  height: '40px',
-                  fontSize: '20px',
-                  zIndex: '-1',
-                }}
-                onClick={() => setEditActivity(activity.id)}
-              >
-                Edit
-              </button>
+                <Fragment>
+                <Button
+                  style={{
+                    backgroundColor: '#666699',
+                    color: 'white',
+                    margin: '10px',
+                    alignItems: 'center',
+                    width: '40%',
+                  }}
+                >
+                  Delete
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: 'rgb(119, 119, 197)',
+                    color: 'white',
+                    margin: '10px',
+                    alignItems: 'center',
+                    width: '40%',
+                  }}
+                  onClick={() => setEditActivity(activity.id)}
+                >
+                  Edit
+                </Button>
+              </Fragment>
             ) : null}
           </div>
         )

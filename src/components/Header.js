@@ -29,9 +29,10 @@ function Header(props) {
         <Link style={{ textDecoration: 'none' }} to="/routines">
           <span className="header-nav-color">Routines</span>
         </Link>
+        { isLoggedIn ? 
         <Link style={{ textDecoration: 'none' }} to="/myroutines">
           <span className="header-nav-color">My Routines</span>
-        </Link>
+        </Link> : null }
         <Link style={{ textDecoration: 'none' }} to="/activities">
           <span className="header-nav-color">Activities</span>
         </Link>

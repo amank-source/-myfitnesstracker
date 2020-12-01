@@ -20,6 +20,8 @@ function App() {
   const [routineList, setRoutineList] = useState([]);
   const [user, setUser] = useState({});
   const [editRoutine, setEditRoutine] = useState({});
+  const [editRoutineAct, setEditRoutineAct] = useState({});
+  const [showRoutForm, setShowRoutForm] = useState(false)
 
 
   function updateActivity(updatedAct) {
@@ -72,19 +74,15 @@ function App() {
   }, [isLoggedIn])
 
   useEffect(() => {
-    async function fetchData() {
-        const resp = await hitAPI('GET', '/users/me')
-        const user = resp.id
-        setUser(user);
-    }
-        fetchData();
-        }, [isLoggedIn])
+    hitAPI('GET', '/users/me')
+      .then((data) => {
+        console.log(data)
+        setUser(data.id)
+      })
+      .catch(console.error)
+  }, [isLoggedIn])
 
-  function userRoutines() {
-    return routineList.filter((routine) => {
-      return routine.creatorId === user;
-    });
-  }
+  
   return (
     <Router>
       <div className="app">
@@ -108,23 +106,33 @@ function App() {
               addActivity={addActivity}
               updateActivity={updateActivity}
             />
-
-            <NewActivity activitiesList={activitiesList} />
+             <NewActivity activitiesList={activitiesList} />     
             </Route>
             <Route path='/myroutines'>
+                {showRoutForm ?
                 <RoutineForm addNewRoutine={addNewRoutine}
                              {...editRoutine}
                              updateRoutine={updateRoutine}
-                             setEditRoutine={setEditRoutine}/>
+                             setEditRoutine={setEditRoutine}
+                             /> : <button onClick={() => {
 
-                <MyRoutines routineList={ userRoutines() }
+                             }}>Create Routine</button>
+                             }
+
+                <MyRoutines routineList={ routineList }
                             setRoutineList={ setRoutineList }
                             isLoggedIn={isLoggedIn}
                             setEditRoutine={setEditRoutine}
-                            user={user}/>
-            </Route>
+                            user={user}
+                            setEditRoutineAct={setEditRoutineAct}
+                            editRoutineAct={editRoutineAct}
+                                />
+            </Route> : 
             <Route path="/routines">
-              <Routines routineList={ routineList } />
+              <Routines routineList={routineList}
+                        setEditRoutineAct={setEditRoutineAct}
+                        editRoutineAct={editRoutineAct}
+                         />
             </Route>
           <Route path="/">
             <Home />
