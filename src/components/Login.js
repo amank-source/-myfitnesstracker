@@ -27,13 +27,16 @@ function Login(props) {
 
       <div className="login-container">
         <h1>Sign In</h1>
+
         <form
           onSubmit={(event) => {
             event.preventDefault()
           }}
         >
+          {errorMessage ? (
+            <h5 style={{ color: 'red' }}>{errorMessage}</h5>
+          ) : null}
           <h5>Email</h5>
-          {errorMessage ? <h5 className="error">{errorMessage}</h5> : null}
           <input
             type="text"
             value={username}
@@ -51,15 +54,19 @@ function Login(props) {
           <button
             className="login-siginbutton"
             onClick={async () => {
-              console.log('hello')
               try {
                 const user = await auth(username, password)
                 console.log(user)
+
                 setIsLoggedIn(true)
                 setUser(user.id)
                 history.push('/')
               } catch (error) {
-                setErrorMessage(error.message)
+                setErrorMessage(
+                  'User name or password is incorrect/ user not registered',
+                )
+
+                console.log(error)
               }
             }}
           >
@@ -73,11 +80,17 @@ function Login(props) {
           onClick={async () => {
             try {
               const user = await auth(username, password, true)
+
+              console.log(user)
               setIsLoggedIn(true)
               setUser(user.id)
               history.push('/')
             } catch (error) {
-              setErrorMessage(error.message)
+              setErrorMessage(
+                'User name or password is incorrect/ user not registered',
+              )
+
+              console.log(error)
             }
           }}
         >

@@ -148,7 +148,6 @@ const MyRoutines = (props) => {
                                             let newAct = activitiesList.find(activity => {
                                                 return activity.id === resp.activityId
                                             })
-                                            console.log(newAct)
                                             newAct.duration = resp.duration;
                                             newAct.count = resp.count;
                                             const newList = [...routineList];
@@ -190,4 +189,3 @@ const MyRoutines = (props) => {
 }
 
 export default MyRoutines;
-

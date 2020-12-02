@@ -12,17 +12,17 @@ import RoutineForm from './RoutineForm'
 import Home from './Home'
 import NewActivity from './NewActivity'
 
-
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken())
   const [activitiesList, setActivitiesList] = useState([])
-  const [routineList, setRoutineList] = useState([]);
-  const [user, setUser] = useState({});
-  const [editRoutine, setEditRoutine] = useState({});
-  const [editRoutineAct, setEditRoutineAct] = useState({});
-  const [showRoutForm, setShowRoutForm] = useState(false)
+  const [routineList, setRoutineList] = useState([])
+  const [username, setUsername] = useState('')
+  const [user, setUser] = useState({})
+  const [editRoutine, setEditRoutine] = useState({})
+  console.log('routine s', routineList)
 
+  const [editRoutineAct, setEditRoutineAct] = useState({})
+  const [showRoutForm, setShowRoutForm] = useState(false)
 
   function updateActivity(updatedAct) {
     let index = activitiesList.findIndex((activity) => {
@@ -52,8 +52,7 @@ function App() {
 
   const addNewRoutine = (newRoutine) => {
     return setRoutineList([newRoutine, ...routineList])
-}
-
+  }
 
   useEffect(() => {
     hitAPI('GET', '/activities')
@@ -74,50 +73,53 @@ function App() {
   }, [isLoggedIn])
 
   useEffect(() => {
-    hitAPI('GET', '/users/me')
-      .then((data) => {
-        console.log(data)
-        setUser(data.id)
-      })
-      .catch(console.error)
+    async function fetchData() {
+      const resp = await hitAPI('GET', '/users/me')
+      const username = resp.username
+
+      const user = resp.id
+      setUser(user)
+      setUsername(username)
+    }
+    fetchData()
   }, [isLoggedIn])
 
-  
+  function userRoutines() {
+    return routineList.filter((routine) => {
+      return routine.creatorId === user
+    })
+  }
   return (
     <Router>
       <div className="app">
-      <Header
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-              clearToken={clearToken}
-            />
+        <Header
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          clearToken={clearToken}
+          username={username}
+        />
         <Switch>
-            <Route path="/login">
-              <Login setIsLoggedIn={setIsLoggedIn}
-                     setUser={setUser} />
-            </Route>
-
+          <Route path="/login">
+            <Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
+          </Route>
           <Route path="/activities">
-
             <Activities
               isLoggedIn={isLoggedIn}
               activitiesList={activitiesList}
               setActivitiesList={setActivitiesList}
               addActivity={addActivity}
               updateActivity={updateActivity}
+              routineList={routineList}
             />
              <NewActivity activitiesList={activitiesList} />     
             </Route>
             <Route path='/myroutines'>
-                {showRoutForm ?
+                
                 <RoutineForm addNewRoutine={addNewRoutine}
                              {...editRoutine}
                              updateRoutine={updateRoutine}
                              setEditRoutine={setEditRoutine}
-                             /> : <button onClick={() => {
-
-                             }}>Create Routine</button>
-                             }
+                             /> 
 
                 <MyRoutines routineList={ routineList }
                             setRoutineList={ setRoutineList }
