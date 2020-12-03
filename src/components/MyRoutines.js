@@ -50,6 +50,7 @@ const ActivityForm = (props) => {
         onClick={async () => {
           handleClick(activityId, count, duration)
           clearForm()
+          setAct('')
         }}
       >
         {id ? 'Edit Activity' : 'Add Activity'}
@@ -75,6 +76,7 @@ const ActivityForm = (props) => {
               return activity.name === act
             })
             setActivityId(newAct.id)
+            
           }}
         >
           Select Activity
@@ -112,7 +114,7 @@ const MyRoutines = (props) => {
       {showForm ? (
         <RoutineForm
           addNewRoutine={addNewRoutine}
-          // {...editRoutine}
+          {...editRoutine}
           onclearClick={() => setShowForm(false)}
         />
       ) : null}
@@ -179,37 +181,27 @@ const MyRoutines = (props) => {
                     count,
                     duration,
                   }
-                  if (id) {
+                  if (editRoutineAct.id) {
                     try {
-                      const editedAct = await hitAPI(
-                        'PATCH',
-                        `/routine_activities/${activityId}`,
-                        editpayload,
-                      )
-                      let index = routineList.findIndex((rout) => {
-                        return rout.id === routine.id
-                      })
-                      if (index > -1) {
-                        const newList = [...routineList]
-                        newList[index] = routine
-                        let actIndex = routine.activities.findIndex(
-                          (activity) => {
-                            return activity.routineActivityId === editedAct.id
-                          },
-                        )
-                        if (actIndex > -1) {
-                          newList[index].activities[actIndex].count =
-                            editedAct.count
-                          newList[index].activities[actIndex].duration =
-                            editedAct.duration
-                          setRoutineList(newList)
-                        }
-                      }
-                      setEditRoutineAct({})
-                    } catch (error) {
-                      console.log(error)
-                    }
-                  } else {
+                        const editedAct = await hitAPI("PATCH", `/routine_activities/${activityId}`, editpayload)
+                        let index = routineList.findIndex((rout) => {
+                            return rout.id === routine.id
+                          })
+                          if (index > -1) {
+                            const newList = [...routineList]
+                            newList[index] = routine
+                            let actIndex = routine.activities.findIndex((activity) => {
+                                return activity.routineActivityId === editedAct.id
+                              })
+                              if (actIndex > -1) {
+                                newList[index].activities[actIndex].count = editedAct.count;
+                                newList[index].activities[actIndex].duration = editedAct.duration;
+                                setRoutineList(newList)
+                              }
+                          }
+                        setEditRoutineAct({})
+                    } catch(error) {console.log(error)} 
+                } else {
                     try {
                        await hitAPI('POST', `/routines/${routine.id}/activities`, payload)
                            .then((resp) => {
