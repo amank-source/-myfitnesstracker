@@ -1,52 +1,71 @@
 .routine-list {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    align-items: center;
+  align-items: center;
 }
 
 .routine {
-    display: grid;
-    grid-template-rows: 1fr 2fr;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
 
-    border: 2px solid rgb(41, 0, 226);
-    border-radius: 5px;
-    color: #4040bf;
-    background-color: rgb(204, 239, 250);
-    box-shadow: 2px 5px 16px 0px rgba(0, 0, 0, 0.91);
+  border: 2px solid rgb(41, 0, 226);
+  border-radius: 5px;
+  color: #4040bf;
+  background-color: rgb(217, 227, 230);
+  box-shadow: 2px 5px 16px 0px rgba(0, 0, 0, 0.91);
 
-    margin: 5px;
-    padding: 5px;
+  margin: 5px;
+  padding: 5px;
 
-    width: 55vw;
+  width: 55vw;
 }
 
 .routine h1 {
-    color: rgb(204, 239, 250);
-    background-color: #4040bf;
+  color: rgb(213, 226, 230);
+  background-color: #4040bf;
 
-    margin: -5px;
-    margin-bottom: 3px;
+  margin: -5px;
+  margin-bottom: 3px;
 }
 
 .routine-activities {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
 
-    background-color: rgb(235, 233, 233);
-    border-top: 3px solid #4040bf;
+  background-color: rgb(235, 233, 233);
+  border-top: 3px solid #4040bf;
 
-    margin: -5px;
-    padding: 5px;
+  margin: -5px;
+  padding: 5px;
 }
 
-button {
-    background-color: #4040bf;
-    color: rgba(255, 255, 255, 0.856);
+.routine-activities > button {
+  background-color: #4545b6;
+  color: rgba(255, 255, 255, 0.856);
 
-    padding: 2px;
-    border-radius: 3px;
+  padding: 2px;
+  border-radius: 3px;
+  height: 40px;
+  width: 30%;
+  font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 800;
+}
+
+.show-act {
+  background-color: #4545b6;
+  color: rgba(255, 255, 255, 0.856);
+
+  padding: 2px;
+  border-radius: 3px;
+  height: 40px;
+  width: 100%;
+  font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 800;
 }

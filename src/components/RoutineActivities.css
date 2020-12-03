@@ -5,6 +5,7 @@
   width: 30vw;
   min-height: 120px;
   border-radius: 12px;
+  z-index: -1;
 }
 .routine-activity > h3 {
   background: rgb(119, 119, 197);

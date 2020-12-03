@@ -22,7 +22,6 @@ function App() {
   console.log('routine s', routineList)
 
   const [editRoutineAct, setEditRoutineAct] = useState({})
-  const [showRoutForm, setShowRoutForm] = useState(false)
 
   function updateActivity(updatedAct) {
     let index = activitiesList.findIndex((activity) => {
@@ -111,32 +110,30 @@ function App() {
               updateActivity={updateActivity}
               routineList={routineList}
             />
-             <NewActivity activitiesList={activitiesList} />     
-            </Route>
-            <Route path='/myroutines'>
-                
-                <RoutineForm addNewRoutine={addNewRoutine}
-                             {...editRoutine}
-                             updateRoutine={updateRoutine}
-                             setEditRoutine={setEditRoutine}
-                             /> 
-
-                <MyRoutines routineList={ routineList }
-                            setRoutineList={ setRoutineList }
-                            isLoggedIn={isLoggedIn}
-                            setEditRoutine={setEditRoutine}
-                            user={user}
-                            setEditRoutineAct={setEditRoutineAct}
-                            editRoutineAct={editRoutineAct}
-                            activitiesList={activitiesList}
-                                />
-            </Route> : 
-            <Route path="/routines">
-              <Routines routineList={routineList}
-                        setEditRoutineAct={setEditRoutineAct}
-                        editRoutineAct={editRoutineAct}
-                         />
-            </Route>
+          </Route>
+          <Route path="/myroutines">
+            <MyRoutines
+              routineList={routineList}
+              setRoutineList={setRoutineList}
+              isLoggedIn={isLoggedIn}
+              setEditRoutine={setEditRoutine}
+              user={user}
+              setEditRoutineAct={setEditRoutineAct}
+              editRoutineAct={editRoutineAct}
+              addNewRoutine={addNewRoutine}
+              {...editRoutine}
+              updateRoutine={updateRoutine}
+              activitiesList={activitiesList}
+            />
+          </Route>
+          :
+          <Route path="/routines">
+            <Routines
+              routineList={routineList}
+              setEditRoutineAct={setEditRoutineAct}
+              editRoutineAct={editRoutineAct}
+            />
+          </Route>
           <Route path="/">
             <Home />
           </Route>

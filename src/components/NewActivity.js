@@ -10,7 +10,7 @@ function NewActivity(props) {
     onclose,
     activityId,
     updateActivity,
-    onCloseEdit,
+
     activitiesList,
   } = props
   const [name, setName] = useState('')
@@ -67,51 +67,30 @@ function NewActivity(props) {
           <h5>&nbsp;</h5>
         )}
 
-        {activityId ? (
-          <Button
-            style={{
-              backgroundColor: 'blue',
-              color: 'white',
-            }}
-            className="activity-buttonnew"
-            onClick={async () => {
-              const objBody = {
-                name,
-                description,
-              }
+        <Button
+          style={{ backgroundColor: 'blue', color: 'white' }}
+          className="activity-buttonnew"
+          onClick={async () => {
+            const objBody = {
+              name,
+              description,
+            }
 
-              if (duplicateActivityCheck()) {
-                setDescription('')
-                setActive(true)
-              } else {
-                try {
-                  const result = await hitAPI(
-                    'PATCH',
-                    `/activities/${activityId}`,
-                    objBody,
-                  )
+            if (activityId) {
+              try {
+                const result = await hitAPI(
+                  'PATCH',
+                  `/activities/${activityId}`,
+                  objBody,
+                )
 
-                  updateActivity(result)
-                  onclose(false)
-                  setActive(false)
-                } catch (error) {
-                  console.error(error)
-                }
+                updateActivity(result)
+                onclose(false)
+                setActive(false)
+              } catch (error) {
+                console.error(error)
               }
-            }}
-          >
-            Update
-          </Button>
-        ) : (
-          <Button
-            style={{ backgroundColor: 'blue', color: 'white' }}
-            className="activity-buttonnew"
-            onClick={async () => {
-              const objBody = {
-                name,
-                description,
-              }
-
+            } else {
               if (duplicateActivityCheck()) {
                 setDescription('')
                 setActive(true)
@@ -126,11 +105,11 @@ function NewActivity(props) {
                   console.error(error)
                 }
               }
-            }}
-          >
-            submit
-          </Button>
-        )}
+            }
+          }}
+        >
+          {activityId ? 'Update' : 'Submit'}
+        </Button>
       </div>
     </div>
   )

@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react'
+import './RoutineForActivity.css'
+import ClearIcon from '@material-ui/icons/Clear'
 
 function RoutinesForActivity(props) {
   const { routineList, onCloseAct, activityName, activitiesList } = props
@@ -21,28 +23,35 @@ function RoutinesForActivity(props) {
   console.log(activityCheck())
 
   return (
-    <div className="routineforactivity">
-      {routineList.map((routine, idx) => {
-        return (
-          <div key={idx}>
-            {activityCheck() ? (
-              <Fragment>
-                {activityCheck().map((idx) => {
-                  return (
-                    <Fragment key={idx}>
-                      <h1>
-                        {routine.name} by {routine.creatorName}
-                      </h1>
+    <div>
+      <div>
+        {routineList.map((routine, idx) => {
+          return (
+            <div key={idx}>
+              {activityCheck() && activityCheck().length > 0 ? (
+                <div className="modal-foractivityRoutine">
+                  <div className="routineforactivity">
+                    <Fragment>
+                      {activityCheck().map((idx) => {
+                        return (
+                          <div key={idx}>
+                            <ClearIcon onClick={() => onCloseAct(null)} />
+                            <h1>
+                              {routine.name} by {routine.creatorName}
+                            </h1>
 
-                      <p>{routine.goal}</p>
+                            <p>{routine.goal}</p>
+                          </div>
+                        )
+                      })}
                     </Fragment>
-                  )
-                })}
-              </Fragment>
-            ) : null}
-          </div>
-        )
-      })}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

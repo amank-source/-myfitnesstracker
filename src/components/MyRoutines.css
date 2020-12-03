@@ -1,40 +1,106 @@
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
-}
 .myroutine-list {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-    align-items: center;
+	align-items: center;
+}
+.routine--form > input {
+	height: 25px;
+	margin: 8px;
+}
+.routine--form > button {
+	height: 25px;
+	padding: 2px 4px 5px 2px;
+	background-color: #4545b6;
+	color: white;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: 500;
 }
 
-.activity-select {
-    width: 30vw;
-    margin: 2px;
+.myRoutin-create {
+	width: 20%;
+	background: blue;
+	text-align: center;
+	color: white;
+	margin: 10px;
+	border-radius: 12px;
+	display: grid;
+	margin-left: 445px;
+}
 
-    padding: 2px;
+.myRoutin-create:hover {
+	cursor: pointer;
+}
+
+.routine--form > button:hover {
+	cursor: pointer;
+}
+
+.routine--form-buuton {
+	height: 40px;
+	background-color: #4545b6;
+	color: white;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: 500;
+	position: relative;
+	z-index: 1;
+}
+
+.options > button {
+	height: 40px;
+	width: 40%;
+	margin: 10px;
+	background-color: #4545b6;
+	color: white;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: 500;
+}
+.options > button:hover {
+	cursor: pointer;
+}
+
+.activeCreating-form {
+	width: 100%;
+	min-height: 120px;
+}
+
+.activeCreating-form > input {
+	height: 25px;
+	margin: 7px;
+}
+.activeCreating-form > button {
+	height: 35px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: 700;
+	background: #4545b6;
+	color: white;
+	border: none;
+	width: 92%;
+	margin: 10px;
+}
+
+.select-div {
+	margin: 10px;
+}
+.activity-select {
+	width: 40%;
+	height: 34px;
+	background: #4545b6;
+	align-items: center;
+	color: white;
+	border: none;
+	margin: 1px 0.2px 2px 1px;
+	align-items: center;
+}
+
+.select-buuton {
+	height: 35px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: 700;
+	background: #4545b6;
+	color: white;
+	border: none;
+	width: 55%;
+
+	margin-top: 3px;
 }
