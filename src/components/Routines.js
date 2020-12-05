@@ -59,7 +59,6 @@ const Routines = ({ routineList }) => {
               {routine.name} by 
                <span
                 onClick={() => {
-                  console.log(routine.creatorName)
                   setRoutineOfCreator(routine.creatorName)
                 }}
               >

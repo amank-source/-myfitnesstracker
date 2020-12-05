@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import { hitAPI } from '../api'
 import RoutineActivities from './RoutineActvities'
 import './MyRoutines.css'
@@ -89,8 +89,9 @@ const ActivityForm = (props) => {
 const MyRoutines = (props) => {
   const {
     routineList,
+    username,
     setRoutineList,
-    setEditRoutine,
+    setActivitiesList,
     showActivities,
     setShowActivities,
     setEditRoutineAct,
@@ -101,7 +102,6 @@ const MyRoutines = (props) => {
     updateRoutine,
     activitiesList,
 
-    id,
   } = props
   const [showForm, setShowForm] = useState(false)
   const [edit1, setEdit1] = useState(null)
@@ -132,6 +132,10 @@ const MyRoutines = (props) => {
                   updateRoutine={updateRoutine}
                   name={routine.name}
                   goal={routine.goal}
+                  activities={routine.activities}
+                  username={routine.creatorName}
+                  activitiesList={activitiesList}
+                  setActivitiesList={setActivitiesList}
                   routineId={routine.id}
                   onclearClick={() => setEdit1(null)}
                 />

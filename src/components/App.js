@@ -113,12 +113,14 @@ function App() {
               isLoggedIn={isLoggedIn}
               setEditRoutine={setEditRoutine}
               user={user}
+              username={username}
               setEditRoutineAct={setEditRoutineAct}
               editRoutineAct={editRoutineAct}
               addNewRoutine={addNewRoutine}
               {...editRoutine}
               updateRoutine={updateRoutine}
               activitiesList={activitiesList}
+              setActivitiesList={setActivitiesList}
             />
           </Route>
           :

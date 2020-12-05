@@ -5,19 +5,24 @@ import ClearIcon from '@material-ui/icons/Clear'
 const RoutineForm = (props) => {
   const {
     addNewRoutine,
-    id,
+    username,
+    activities,
     updateRoutine,
-    setEditRoutine,
     onclearClick,
-    onclearedit,
     routineId,
   } = props
+
   const [name, setName] = useState('')
   const [goal, setGoal] = useState('')
+  
+
   useEffect(() => {
+    const ac = new AbortController()
     setGoal(props.goal || '')
     setName(props.name || '')
+    return () => ac.abort()
   }, [routineId])
+
   return (
     <div className="modal-routine">
       <div className="routine-form">
@@ -53,6 +58,7 @@ const RoutineForm = (props) => {
                     `/routines/${routineId}`,
                     payload,
                   )
+                  editedRoutine.activities = activities
                   updateRoutine(editedRoutine)
                   onclearClick(null)
                 } catch (error) {
@@ -61,6 +67,7 @@ const RoutineForm = (props) => {
               } else {
                 try {
                   const newRoutine = await hitAPI('POST', '/routines', payload)
+                  console.log(newRoutine, username);
                   addNewRoutine(newRoutine)
                 } catch (error) {
                   console.log(error)
