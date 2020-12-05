@@ -23,3 +23,22 @@ yarn-debug.log*
 yarn-error.log*
 
 
+else {
+                             try {
+                                await hitAPI('POST', `/routines/${routine.id}/activities`, payload)
+                                    .then((resp) => {
+                                        console.log(resp)
+                                        let newAct = activitiesList.find(activity => {
+                                            return activity.id === resp.activityId
+                                        })
+                                        newAct.duration = resp.duration;
+                                        newAct.count = resp.count;
+                                        const newList = [...routineList];
+                                        let idx = newList.indexOf(routine);
+                                        newList[idx].activities.push(newAct)
+                                        setRoutineList(newList);
+                                        }).catch(console.error)
+                            } catch(error) {console.log(error)}
+                                
+                            }
+

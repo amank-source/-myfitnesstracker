@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import { hitAPI } from '../api'
 import RoutineActivities from './RoutineActvities'
 import './MyRoutines.css'
@@ -47,6 +47,7 @@ const ActivityForm = (props) => {
           handleClick(activityId, count, duration)
           setAct('')
           clearForm()
+          setAct('')
         }}
       >
         {id ? 'Edit Activity' : 'Add Activity'}
@@ -84,7 +85,7 @@ const MyRoutines = (props) => {
     routineList,
     username,
     setRoutineList,
-    setEditRoutine,
+    setActivitiesList,
     showActivities,
     setShowActivities,
     setEditRoutineAct,
@@ -94,7 +95,7 @@ const MyRoutines = (props) => {
     editRoutine,
     updateRoutine,
     activitiesList,
-    setActivitiesList,
+
     id,
   } = props
   const [showForm, setShowForm] = useState(false)
@@ -111,7 +112,7 @@ const MyRoutines = (props) => {
       {showForm ? (
         <RoutineForm
           addNewRoutine={addNewRoutine}
-          // {...editRoutine}
+          {...editRoutine}
           onclearClick={() => setShowForm(false)}
         />
       ) : null}
@@ -121,7 +122,7 @@ const MyRoutines = (props) => {
           return user === routine.creatorId ? (
             <div className="routine" key={routine.id}>
               <h1>
-                {routine.name} by {routine.creatorName}
+                {routine.name} by {username}
               </h1>
               <h2>{routine.goal}</h2>
               {edit1 === routine.id ? (

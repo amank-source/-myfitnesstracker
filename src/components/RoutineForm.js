@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { hitAPI } from '../api'
 import './RoutineForm.css'
 import ClearIcon from '@material-ui/icons/Clear'
-
 const RoutineForm = (props) => {
   const {
     addNewRoutine,
-
-    updateRoutine,
-    setEditRoutine,
-    onclearClick,
-    onclearedit,
-    routineId,
     activities,
+    updateRoutine,
+    onclearClick,
+    routineId,
   } = props
+
   const [name, setName] = useState('')
   const [goal, setGoal] = useState('')
 
@@ -45,7 +42,6 @@ const RoutineForm = (props) => {
             }}
             placeholder="Goal of Routine"
           />
-
           <button
             onClick={async () => {
               const payload = {
@@ -53,7 +49,6 @@ const RoutineForm = (props) => {
                 goal,
                 isPublic: true,
               }
-
               if (routineId) {
                 try {
                   const editedRoutine = await hitAPI(
@@ -70,11 +65,11 @@ const RoutineForm = (props) => {
               } else {
                 try {
                   const newRoutine = await hitAPI('POST', '/routines', payload)
+                  newRoutine.activities = []
                   addNewRoutine(newRoutine)
                 } catch (error) {
                   console.log(error)
                 }
-
                 onclearClick(false)
                 setName('')
                 setGoal('')
@@ -88,5 +83,4 @@ const RoutineForm = (props) => {
     </div>
   )
 }
-
 export default RoutineForm

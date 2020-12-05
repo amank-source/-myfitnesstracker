@@ -82,12 +82,7 @@ function App() {
     }
     fetchData()
   }, [isLoggedIn])
-
-  function userRoutines() {
-    return routineList.filter((routine) => {
-      return routine.creatorId === user
-    })
-  }
+ 
   return (
     <Router>
       <div className="app">
@@ -118,6 +113,7 @@ function App() {
               isLoggedIn={isLoggedIn}
               setEditRoutine={setEditRoutine}
               user={user}
+              username={username}
               setEditRoutineAct={setEditRoutineAct}
               editRoutineAct={editRoutineAct}
               addNewRoutine={addNewRoutine}
@@ -125,7 +121,6 @@ function App() {
               updateRoutine={updateRoutine}
               activitiesList={activitiesList}
               setActivitiesList={setActivitiesList}
-
             />
           </Route>
           :

@@ -56,14 +56,13 @@ const Routines = ({ routineList }) => {
         return (
           <div className="routine" key={routine.id}>
             <h1>
-              {routine.name} by
-              <span
+              {routine.name} by 
+               <span
                 onClick={() => {
-                  console.log(routine.creatorName)
                   setRoutineOfCreator(routine.creatorName)
                 }}
               >
-                {routine.creatorName}
+              {routine.creatorName}
               </span>
             </h1>
             <h2>{routine.goal}</h2>

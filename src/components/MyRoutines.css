@@ -38,6 +38,9 @@
 	position: relative;
 	margin: 20px;
 	color: white;
+	margin: 10px;
+	border-radius: 12px;
+	display: grid;
 }
 
 .myRoutin-create:hover {
@@ -117,6 +120,7 @@
 
 .select-div {
 	margin: 10px;
+	display: flex;
 }
 .activity-select {
 	width: 20%;
@@ -146,4 +150,5 @@
 	border-radius: 12px;
 
 	margin-top: 3px;
+	border-radius: 3px;
 }
