@@ -108,6 +108,7 @@ const MyRoutines = (props) => {
 
   return (
     <>
+      <div className="myroutine-list">
       <div className="myRoutin-create">
         <h2 onClick={() => setShowForm(true)}>Create Routine</h2>
       </div>
@@ -118,8 +119,6 @@ const MyRoutines = (props) => {
           onclearClick={() => setShowForm(false)}
         />
       ) : null}
-
-      <div className="myroutine-list">
         <h1>My Routines</h1>
         {routineList.map((routine) => {
           return user === routine.creatorId ? (

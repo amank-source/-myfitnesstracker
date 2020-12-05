@@ -19,13 +19,13 @@
 
 .myRoutin-create {
 	width: 20%;
-	background: blue;
+	background: #4545b6;
 	text-align: center;
 	color: white;
 	margin: 10px;
 	border-radius: 12px;
 	display: grid;
-	margin-left: 445px;
+	
 }
 
 .myRoutin-create:hover {
@@ -76,11 +76,15 @@
 	color: white;
 	border: none;
 	width: 92%;
-	margin: 10px;
+    margin: 10px;
+    
+    border-radius: 3px;
 }
 
 .select-div {
-	margin: 10px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 .activity-select {
 	width: 40%;
@@ -90,7 +94,8 @@
 	color: white;
 	border: none;
 	margin: 1px 0.2px 2px 1px;
-	align-items: center;
+    align-items: center;
+    border-radius: 3px;
 }
 
 .select-buuton {
@@ -102,5 +107,6 @@
 	border: none;
 	width: 55%;
 
-	margin-top: 3px;
+    margin-top: 3px;
+    border-radius: 3px;
 }

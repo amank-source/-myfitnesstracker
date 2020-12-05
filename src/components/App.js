@@ -83,11 +83,6 @@ function App() {
     fetchData()
   }, [isLoggedIn])
 
-  function userRoutines() {
-    return routineList.filter((routine) => {
-      return routine.creatorId === user
-    })
-  }
   return (
     <Router>
       <div className="app">

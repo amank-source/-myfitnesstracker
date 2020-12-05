@@ -37,11 +37,11 @@ const RoutineActivities = ({
                   <div className="routine-activity">
                     <h3>{activity.name}</h3>
                     <h4>{activity.description}</h4>
-                    <p>
+                    <p><strong>
                       Rep Count: {activity.count}, Duration: {activity.duration}
-                    </p>
+                    </strong></p>
                     {myRoutines ? (
-                      <div>
+                      <div className='act-buttons'>
                         <button
                           style={{ zIndex: '-1' }}
                           onClick={() => {
