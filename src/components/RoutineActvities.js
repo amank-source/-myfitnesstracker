@@ -31,7 +31,7 @@ const RoutineActivities = ({
       )}
       <ol>
         {showActivities
-          ? activityList.map((activity) => {
+          ? activityList?.map((activity) => {
               return (
                 <li key={activity.id}>
                   <div className="routine-activity">

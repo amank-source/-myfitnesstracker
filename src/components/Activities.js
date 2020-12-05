@@ -20,28 +20,32 @@ function Activities(props) {
 
   return (
     <div className="activities">
-      <CreateIcon
-        style={{
-          position: 'fixed',
-          bottom: '70px',
-          right: '40px',
-          fontSize: 'xxxlarge',
-        }}
-        fontSize="large"
-        onClick={() => setNewActivity(true)}
-      />
+      {isLoggedIn ? (
+        <Fragment>
+          <CreateIcon
+            style={{
+              position: 'fixed',
+              bottom: '70px',
+              right: '40px',
+              fontSize: 'xxxlarge',
+            }}
+            fontSize="large"
+            onClick={() => setNewActivity(true)}
+          />
 
-      {newActivity ? (
-        <NewActivity
-          onclose={() => setNewActivity(false)}
-          addActivity={addActivity}
-          setNewActivity={setNewActivity}
-          newActivity={newActivity}
-          activitiesList={activitiesList}
-        />
+          {newActivity ? (
+            <NewActivity
+              onclose={() => setNewActivity(false)}
+              addActivity={addActivity}
+              setNewActivity={setNewActivity}
+              newActivity={newActivity}
+              activitiesList={activitiesList}
+            />
+          ) : null}
+        </Fragment>
       ) : null}
 
-      {activitiesList.map((activity, idx) => {
+      {activitiesList?.map((activity, idx) => {
         return (
           <div className="activity-card" key={idx}>
             <h3 onClick={() => setRoutineForActivity(activity.name)}>
@@ -67,25 +71,29 @@ function Activities(props) {
               />
             ) : null}
 
-            <button
-              style={{
-                backgroundColor: 'rgb(54, 54, 187)',
-                color: 'white',
-                margin: '10px',
-                alignItems: 'center',
-                width: '90%',
-                fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
-                fontWeight: '800',
-                height: '35px',
-                width: '97%',
-                // zIndex: '-1',
-              }}
-              onClick={() => {
-                setEditActivity(activity.id)
-              }}
-            >
-              Edit
-            </button>
+            {isLoggedIn ? (
+              <button
+                style={{
+                  margin: '10px',
+                  color: 'white',
+                  background: 'rgb(54, 54, 187)',
+                  alignItems: 'center',
+                  borderRadius: '12px',
+                  fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+                  fontWeight: '800',
+                  height: '35px',
+                  width: '37%',
+                  marginLeft: '30%',
+                  boxShadow:
+                    '0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0)',
+                }}
+                onClick={() => {
+                  setEditActivity(activity.id)
+                }}
+              >
+                Edit
+              </button>
+            ) : null}
           </div>
         )
       })}

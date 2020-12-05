@@ -6,19 +6,22 @@ import ClearIcon from '@material-ui/icons/Clear'
 const RoutineForm = (props) => {
   const {
     addNewRoutine,
-    id,
+
     updateRoutine,
     setEditRoutine,
     onclearClick,
     onclearedit,
     routineId,
+    activities,
   } = props
   const [name, setName] = useState('')
   const [goal, setGoal] = useState('')
 
-  useEffect(() => {
+  React.useEffect(() => {
+    const ac = new AbortController()
     setGoal(props.goal || '')
     setName(props.name || '')
+    return () => ac.abort()
   }, [routineId])
 
   return (
@@ -58,6 +61,7 @@ const RoutineForm = (props) => {
                     `/routines/${routineId}`,
                     payload,
                   )
+                  editedRoutine.activities = activities
                   updateRoutine(editedRoutine)
                   onclearClick(null)
                 } catch (error) {

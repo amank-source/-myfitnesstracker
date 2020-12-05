@@ -19,7 +19,7 @@ export const RoutineActivities = ({ activityList }) => {
       ) : null}
       <ol>
         {showActivities ? (
-          activityList.map((activity) => {
+          activityList?.map((activity) => {
             return (
               <li key={activity.id}>
                 <div className="routine-activity" key={activity.id}>

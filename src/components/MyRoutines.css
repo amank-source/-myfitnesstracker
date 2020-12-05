@@ -17,15 +17,27 @@
 	font-weight: 500;
 }
 
-.myRoutin-create {
-	width: 20%;
-	background: blue;
+.myrout-cr123 {
+	width: 100%;
+	background: rgb(56, 56, 133);
+	min-height: 70px;
+	margin-top: -20px;
 	text-align: center;
+}
+
+.myrout-cr123 > h2 {
+	padding-top: 20px;
+}
+
+.myRoutin-create {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	padding: 5px;
+	margin-top: 10px;
+	align-self: center;
+
+	position: relative;
+	margin: 20px;
 	color: white;
-	margin: 10px;
-	border-radius: 12px;
-	display: grid;
-	margin-left: 445px;
 }
 
 .myRoutin-create:hover {
@@ -43,16 +55,35 @@
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	font-weight: 500;
 	position: relative;
+	outline: none;
 	z-index: 1;
+}
+
+.heading {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-weight: 900;
+	font-size: 40px;
+	background: rgb(200, 200, 204);
+	width: 100%;
+	display: flex;
+	align-content: center;
+	justify-items: center;
+	justify-content: center;
+	padding-top: 20px;
+	height: 70px;
 }
 
 .options > button {
 	height: 40px;
-	width: 40%;
+	width: 20%;
 	margin: 10px;
-	background-color: #4545b6;
+	align-items: center;
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+
+	background: #4545b6;
 	color: white;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	border-radius: 12px;
 	font-weight: 500;
 }
 .options > button:hover {
@@ -62,45 +93,57 @@
 .activeCreating-form {
 	width: 100%;
 	min-height: 120px;
+	margin: 5px;
 }
 
 .activeCreating-form > input {
-	height: 25px;
-	margin: 7px;
+	height: 27px;
+	margin: 4px;
+	outline: none;
 }
 .activeCreating-form > button {
 	height: 35px;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	font-weight: 700;
+
 	background: #4545b6;
 	color: white;
 	border: none;
-	width: 92%;
-	margin: 10px;
+	width: 20%;
+	margin: 3px;
+	border-radius: 12px;
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 
 .select-div {
 	margin: 10px;
 }
 .activity-select {
-	width: 40%;
+	width: 20%;
 	height: 34px;
-	background: #4545b6;
+
 	align-items: center;
 	color: white;
 	border: none;
 	margin: 1px 0.2px 2px 1px;
+	background: rgb(78, 78, 211);
 	align-items: center;
+	margin: 2px;
+	border-radius: 12px;
+	outline: none;
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 
 .select-buuton {
 	height: 35px;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 	font-weight: 700;
 	background: #4545b6;
 	color: white;
 	border: none;
-	width: 55%;
+	width: 20%;
+	border-radius: 12px;
 
 	margin-top: 3px;
 }

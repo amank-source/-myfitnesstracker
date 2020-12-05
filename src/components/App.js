@@ -124,6 +124,8 @@ function App() {
               {...editRoutine}
               updateRoutine={updateRoutine}
               activitiesList={activitiesList}
+              setActivitiesList={setActivitiesList}
+
             />
           </Route>
           :

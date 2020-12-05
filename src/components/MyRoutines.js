@@ -3,26 +3,22 @@ import { hitAPI } from '../api'
 import RoutineActivities from './RoutineActvities'
 import './MyRoutines.css'
 import RoutineForm from './RoutineForm'
-
 const ActivityForm = (props) => {
   const { handleClick, id, activitiesList } = props
   const [activityId, setActivityId] = useState('')
   const [count, setCount] = useState('')
   const [duration, setDuration] = useState('')
   const [act, setAct] = useState('')
-
   useEffect(() => {
     setActivityId(props.routineActivityId || '')
     setCount(props.count || '')
     setDuration(props.duration || '')
   }, [id])
-
   function clearForm() {
     setActivityId('')
     setCount('')
     setDuration('')
   }
-
   return (
     <form
       className="activeCreating-form"
@@ -49,6 +45,7 @@ const ActivityForm = (props) => {
       <button
         onClick={async () => {
           handleClick(activityId, count, duration)
+          setAct('')
           clearForm()
         }}
       >
@@ -66,7 +63,6 @@ const ActivityForm = (props) => {
             return <option key={activity.id}>{activity.name}</option>
           })}
         </select>
-
         <button
           className="select-buuton"
           onClick={() => {
@@ -83,10 +79,10 @@ const ActivityForm = (props) => {
     </form>
   )
 }
-
 const MyRoutines = (props) => {
   const {
     routineList,
+    username,
     setRoutineList,
     setEditRoutine,
     showActivities,
@@ -98,16 +94,19 @@ const MyRoutines = (props) => {
     editRoutine,
     updateRoutine,
     activitiesList,
-
+    setActivitiesList,
     id,
   } = props
   const [showForm, setShowForm] = useState(false)
   const [edit1, setEdit1] = useState(null)
 
+  useEffect(() => {}, [editRoutine])
   return (
     <>
-      <div className="myRoutin-create">
-        <h2 onClick={() => setShowForm(true)}>Create Routine</h2>
+      <div className="myrout-cr123">
+        <h2 className="myRoutin-create" onClick={() => setShowForm(true)}>
+          Create Routine
+        </h2>
       </div>
       {showForm ? (
         <RoutineForm
@@ -116,9 +115,8 @@ const MyRoutines = (props) => {
           onclearClick={() => setShowForm(false)}
         />
       ) : null}
-
       <div className="myroutine-list">
-        <h1>My Routines</h1>
+        <h1 className="heading">My Routines</h1>
         {routineList.map((routine) => {
           return user === routine.creatorId ? (
             <div className="routine" key={routine.id}>
@@ -131,6 +129,10 @@ const MyRoutines = (props) => {
                   updateRoutine={updateRoutine}
                   name={routine.name}
                   goal={routine.goal}
+                  activities={routine.activities}
+                  username={routine.creatorName}
+                  activitiesList={activitiesList}
+                  setActivitiesList={setActivitiesList}
                   routineId={routine.id}
                   onclearClick={() => setEdit1(null)}
                 />
@@ -153,7 +155,6 @@ const MyRoutines = (props) => {
                 >
                   DELETE
                 </button>
-
                 <button
                   style={{ zIndex: '-1' }}
                   onClick={() => {
@@ -174,12 +175,11 @@ const MyRoutines = (props) => {
                     count,
                     duration,
                   }
-
                   const editpayload = {
                     count,
                     duration,
                   }
-                  if (editRoutineAct) {
+                  if (editRoutineAct.id) {
                     try {
                       const editedAct = await hitAPI(
                         'PATCH',
@@ -190,7 +190,7 @@ const MyRoutines = (props) => {
                         return rout.id === routine.id
                       })
                       if (index > -1) {
-                        const newList = [...routineList]
+                        let newList = [...routineList]
                         newList[index] = routine
                         let actIndex = routine.activities.findIndex(
                           (activity) => {
@@ -217,9 +217,15 @@ const MyRoutines = (props) => {
                         payload,
                       )
                         .then((resp) => {
+                          console.log(resp)
+                          let newAct = activitiesList.find((activity) => {
+                            return activity.id === resp.activityId
+                          })
+                          newAct.duration = resp.duration
+                          newAct.count = resp.count
                           const newList = [...routineList]
                           let idx = newList.indexOf(routine)
-                          newList[idx].activities.push(resp)
+                          newList[idx].activities.push(newAct)
                           setRoutineList(newList)
                         })
                         .catch(console.error)
@@ -263,5 +269,4 @@ const MyRoutines = (props) => {
     </>
   )
 }
-
 export default MyRoutines

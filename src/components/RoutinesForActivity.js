@@ -24,17 +24,24 @@ function RoutinesForActivity(props) {
 
   return (
     <div>
+      {activityCheck().length <= 0 ? (
+        <Fragment>
+          <ClearIcon onClick={() => onCloseAct(null)} />
+
+          <h3>No Routine Found</h3>
+        </Fragment>
+      ) : null}
       <div>
-        {routineList.map((routine, idx) => {
+        {routineList?.map((routine, idx) => {
           return (
             <div key={idx}>
               {activityCheck() && activityCheck().length > 0 ? (
                 <div className="modal-foractivityRoutine">
                   <div className="routineforactivity">
                     <Fragment>
-                      {activityCheck().map((idx) => {
+                      {activityCheck().map((index) => {
                         return (
-                          <div key={idx}>
+                          <div>
                             <ClearIcon onClick={() => onCloseAct(null)} />
                             <h1>
                               {routine.name} by {routine.creatorName}
