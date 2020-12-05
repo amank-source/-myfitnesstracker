@@ -124,7 +124,7 @@ const MyRoutines = (props) => {
           return user === routine.creatorId ? (
             <div className="routine" key={routine.id}>
               <h1>
-                {routine.name} by {routine.creatorName}
+                {routine.name} by {username}
               </h1>
               <h2>{routine.goal}</h2>
               {edit1 === routine.id ? (
@@ -133,7 +133,6 @@ const MyRoutines = (props) => {
                   name={routine.name}
                   goal={routine.goal}
                   activities={routine.activities}
-                  username={routine.creatorName}
                   activitiesList={activitiesList}
                   setActivitiesList={setActivitiesList}
                   routineId={routine.id}

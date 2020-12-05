@@ -5,7 +5,6 @@ import ClearIcon from '@material-ui/icons/Clear'
 const RoutineForm = (props) => {
   const {
     addNewRoutine,
-    username,
     activities,
     updateRoutine,
     onclearClick,
@@ -22,6 +21,7 @@ const RoutineForm = (props) => {
     setName(props.name || '')
     return () => ac.abort()
   }, [routineId])
+
 
   return (
     <div className="modal-routine">
@@ -67,7 +67,7 @@ const RoutineForm = (props) => {
               } else {
                 try {
                   const newRoutine = await hitAPI('POST', '/routines', payload)
-                  console.log(newRoutine, username);
+                  newRoutine.activities = []
                   addNewRoutine(newRoutine)
                 } catch (error) {
                   console.log(error)
